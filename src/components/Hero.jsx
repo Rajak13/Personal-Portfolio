@@ -29,13 +29,21 @@ const Hero = () => {
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background: gradient for light, image for dark */}
       <div className="absolute inset-0 w-full h-full">
-        {/* Light mode: gradient only */}
-        <div className="block dark:hidden absolute inset-0 bg-gradient-to-br from-blue-100 via-purple-100 to-pink-100" />
-        {/* Dark mode: background image */}
+        {/* Light mode: vibrant gradient */}
+        <div className="block dark:hidden absolute inset-0 bg-gradient-to-br from-[#e0e7ff] via-[#fceabb] to-[#fbc2eb]" />
+        {/* Dark mode: background image (mobile and desktop) */}
+        {/* Mobile background image (dark mode, mobile only) */}
         <img
-          src={BG_IMAGE}
-          alt="Hero background"
-          className="hidden dark:block w-full h-full object-cover object-center opacity-40"
+          src="/559.jpg"
+          alt="Hero background mobile"
+          className="hidden dark:block sm:hidden w-full h-full object-cover object-[center_top] opacity-50 dark:opacity-40"
+          style={{ zIndex: 0 }}
+        />
+        {/* Desktop background image (debug: always show) */}
+        <img
+          src="/glasses-lie-laptop-reflecting-light-from-screen-dark.jpg"
+          alt="Hero background debug"
+          className="block w-full h-full object-cover object-center"
           style={{ zIndex: 0 }}
         />
         {/* Subtle grid pattern overlay */}
@@ -66,7 +74,7 @@ const Hero = () => {
 
       <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
         {/* Profile Image or Initials */}
-        <div className="mb-8 relative">
+        <div className="mb-8 relative mt-24 sm:mt-0">
           {!imgError ? (
             <img
               src={PROFILE_IMAGE}
