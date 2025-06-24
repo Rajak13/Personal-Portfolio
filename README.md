@@ -7,6 +7,20 @@
 ## 🚀 Overview
 This is a modern, fully responsive developer portfolio built with React, Tailwind CSS, and Vite. It showcases my skills, projects, certifications, and contact information in a visually engaging, dark-themed design. The site is optimized for all devices and features smooth animations, project filtering, and easy ways for visitors to get in touch or download your CV.
 
+## 🌐 Live Demo
+
+[![Portfolio Preview](public/projects/todo.png)](https://rajak.vercel.app/)
+
+> 🔗 **[View Live Demo](https://rajak.vercel.app/)**
+
+---
+
+## 🌐 Live Demo
+
+[![Portfolio Preview](public/projects/todo.png)](https://rajak.vercel.app/)
+
+> 🔗 **[View Live Demo](https://rajak.vercel.app/)**
+
 ---
 
 ## ✨ Features
@@ -26,11 +40,6 @@ This is a modern, fully responsive developer portfolio built with React, Tailwin
 - **Vite** (for fast development and builds)
 - **Tailwind CSS** (utility-first styling)
 - **Lucide React** (for icons)
-
----
-
-## 🌐 Live Demo
-[ara-portfolio.vercel.app](https://ara-portfolio.vercel.app)
 
 ---
 
