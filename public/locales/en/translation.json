@@ -1,0 +1,94 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "projects": "Projects",
+    "skills": "Skills",
+    "contact": "Contact"
+  },
+  "hero": {
+    "firstname": "Abdul Razzaq",
+    "lastname": "Ansari",
+    "role": "Full-Stack Developer & Problem Solver",
+    "description": "A self-motivated BSc Computing student from Nepal, passionate about creating scalable web applications with modern technologies. Specialized in Java, PHP, React, and Python development.",
+    "get_in_touch": "Get In Touch",
+    "download_cv": "Download CV"
+  },
+  "about": {
+    "title": "About Me",
+    "subtitle": "Passionate about creating innovative solutions and building the future of web development",
+    "greeting": "Hi, I'm Abdul Razzaq Ansari",
+    "intro": "My journey as a software engineer has been a fascinating one, filled with challenges and opportunities to grow. I am a self-motivated and technical professional wishing to grow as a web developer in an energetic organization. Currently pursuing BSc Computing at Itahari International College.",
+    "get_in_touch": "Get In Touch",
+    "phone": "Phone",
+    "location": "Location",
+    "education": "Education",
+    "degree": "BSc. (Hons) Computing",
+    "scl": "S.L.C. (Science Stream)",
+    "certifications": "Certifications",
+    "aws_cloud": "AWS Academy Cloud Foundations",
+    "aws_ml": "AWS Machine Learning Foundations",
+    "aws_nlp": "AWS Machine Learning for NLP",
+    "cpp": "C++ Basic Certification"
+  },
+  "projects": {
+    "title": "Featured Projects",
+    "subtitle": "A showcase of my recent work and technical achievements across different platforms",
+    "filters": {
+      "all": "All Projects",
+      "web": "Web Apps",
+      "desktop": "Desktop Apps"
+    },
+    "search_placeholder": "Search projects, technologies..."
+  },
+  "skills": {
+    "title": "Skills & Expertise",
+    "subtitle": "A comprehensive overview of my technical abilities and professional skills"
+  },
+  "contact": {
+    "title": "Let's Work Together",
+    "subtitle": "Ready to bring your ideas to life? Let's discuss your next project and create something amazing together.",
+    "get_in_touch": "Get In Touch",
+    "intro": "I'm always excited to work on new projects and collaborate with amazing people. Whether you have a project in mind or just want to chat about technology, feel free to reach out!",
+    "email": "Email",
+    "email_response": "Response within 24 hours",
+    "phone": "Phone",
+    "phone_time": "Available 9 AM - 6 PM NPT",
+    "location": "Location",
+    "location_time": "Nepal (UTC+5:45)",
+    "connect": "Connect With Me",
+    "available": "Available for new projects",
+    "available_desc": "Currently accepting new client work and collaborations",
+    "start_project": "Start a Project",
+    "form": {
+      "name": "Full Name *",
+      "name_placeholder": "Your full name"
+    },
+    "project_types": {
+      "web_app": "Web Application",
+      "mobile_app": "Mobile App",
+      "desktop_app": "Desktop Application",
+      "ecommerce": "E-commerce Site",
+      "portfolio": "Portfolio Website",
+      "custom": "Custom Software",
+      "other": "Other"
+    },
+    "budget": {
+      "under_1000": "Under $1,000",
+      "1000_5000": "$1,000 - $5,000",
+      "5000_10000": "$5,000 - $10,000",
+      "10000_25000": "$10,000 - $25,000",
+      "25000_plus": "$25,000+",
+      "discuss": "Let's discuss"
+    },
+    "timeline": {
+      "asap": "ASAP",
+      "1_2_weeks": "1-2 weeks",
+      "1_month": "1 month",
+      "2_3_months": "2-3 months",
+      "3_6_months": "3-6 months",
+      "6_plus_months": "6+ months",
+      "flexible": "Flexible"
+    }
+  }
+}

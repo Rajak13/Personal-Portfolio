@@ -2,8 +2,10 @@
 
 import { Brain, Clock, Code2, Database, FileText, Globe, MessageCircle, Palette, Target, Users } from "lucide-react"
 import { useState } from "react"
+import { useTranslation } from 'react-i18next'
 
 const Skills = () => {
+  const { t } = useTranslation();
   const [activeCategory, setActiveCategory] = useState("technical")
 
   const skillCategories = {
@@ -126,11 +128,11 @@ const Skills = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-              Skills & Expertise
+              {t('skills.title')}
             </span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            A comprehensive overview of my technical abilities and professional skills
+            {t('skills.subtitle')}
           </p>
         </div>
 

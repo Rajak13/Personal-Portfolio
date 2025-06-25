@@ -1,10 +1,10 @@
-import type { Metadata } from 'next'
+import '../src/components/LanguageSwitcher.jsx'
+import LanguageSwitcher from '../src/components/LanguageSwitcher.jsx'
 import './globals.css'
 
-export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
+export const metadata = {
+  title: 'Rajak Portfolio',
+  description: 'Created with React and Vite'
 }
 
 export default function RootLayout({
@@ -14,7 +14,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <div style={{ position: 'fixed', top: 16, right: 16, zIndex: 1000 }}>
+          <LanguageSwitcher />
+        </div>
+        {children}
+      </body>
     </html>
   )
 }

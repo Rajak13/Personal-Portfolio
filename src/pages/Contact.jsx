@@ -2,8 +2,10 @@
 
 import { CheckCircle, Github, Instagram, Mail, MapPin, MessageSquare, Phone, Send } from "lucide-react"
 import { useState } from "react"
+import { useTranslation } from 'react-i18next'
 
 const Contact = () => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -39,25 +41,33 @@ const Contact = () => {
   }
 
   const projectTypes = [
-    "Web Application",
-    "Mobile App",
-    "Desktop Application",
-    "E-commerce Site",
-    "Portfolio Website",
-    "Custom Software",
-    "Other",
+    t('contact.project_types.web_app'),
+    t('contact.project_types.mobile_app'),
+    t('contact.project_types.desktop_app'),
+    t('contact.project_types.ecommerce'),
+    t('contact.project_types.portfolio'),
+    t('contact.project_types.custom'),
+    t('contact.project_types.other'),
   ]
 
   const budgetRanges = [
-    "Under $1,000",
-    "$1,000 - $5,000",
-    "$5,000 - $10,000",
-    "$10,000 - $25,000",
-    "$25,000+",
-    "Let's discuss",
+    t('contact.budget.under_1000'),
+    t('contact.budget.1000_5000'),
+    t('contact.budget.5000_10000'),
+    t('contact.budget.10000_25000'),
+    t('contact.budget.25000_plus'),
+    t('contact.budget.discuss'),
   ]
 
-  const timelineOptions = ["ASAP", "1-2 weeks", "1 month", "2-3 months", "3-6 months", "6+ months", "Flexible"]
+  const timelineOptions = [
+    t('contact.timeline.asap'),
+    t('contact.timeline.1_2_weeks'),
+    t('contact.timeline.1_month'),
+    t('contact.timeline.2_3_months'),
+    t('contact.timeline.3_6_months'),
+    t('contact.timeline.6_plus_months'),
+    t('contact.timeline.flexible'),
+  ]
 
   return (
     <section
@@ -68,11 +78,11 @@ const Contact = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
-              Let's Work Together
+              {t('contact.title')}
             </span>
           </h2>
           <p className="text-xl text-gray-700 dark:text-gray-300 max-w-3xl mx-auto">
-            Ready to bring your ideas to life? Let's discuss your next project and create something amazing together.
+            {t('contact.subtitle')}
           </p>
         </div>
 
@@ -82,11 +92,10 @@ const Contact = () => {
             <div className="group">
               <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
                 <MessageSquare className="w-6 h-6 text-blue-600 dark:text-blue-400" />
-                Get In Touch
+                {t('contact.get_in_touch')}
               </h3>
               <p className="text-gray-700 dark:text-gray-300 mb-8 leading-relaxed">
-                I'm always excited to work on new projects and collaborate with amazing people. Whether you have a
-                project in mind or just want to chat about technology, feel free to reach out!
+                {t('contact.intro')}
               </p>
             </div>
 
@@ -97,9 +106,9 @@ const Contact = () => {
                   <Mail className="w-7 h-7 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Email</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{t('contact.email')}</p>
                   <p className="text-gray-900 dark:text-white font-semibold text-lg">rajakansari833@gmail.com</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Response within 24 hours</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('contact.email_response')}</p>
                 </div>
               </div>
 
@@ -108,9 +117,9 @@ const Contact = () => {
                   <Phone className="w-7 h-7 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Phone</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{t('contact.phone')}</p>
                   <p className="text-gray-900 dark:text-white font-semibold text-lg">+977 9827310498</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Available 9 AM - 6 PM NPT</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('contact.phone_time')}</p>
                 </div>
               </div>
 
@@ -119,16 +128,16 @@ const Contact = () => {
                   <MapPin className="w-7 h-7 text-white" />
                 </div>
                 <div>
-                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">Location</p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">{t('contact.location')}</p>
                   <p className="text-gray-900 dark:text-white font-semibold text-lg">Dharan-1, Sunsari</p>
-                  <p className="text-xs text-gray-500 dark:text-gray-400">Nepal (UTC+5:45)</p>
+                  <p className="text-xs text-gray-500 dark:text-gray-400">{t('contact.location_time')}</p>
                 </div>
               </div>
             </div>
 
             {/* Social Links */}
             <div className="pt-6">
-              <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Connect With Me</h4>
+              <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">{t('contact.connect')}</h4>
               <div className="flex gap-4">
                 <a
                   href="https://github.com/Rajak13"
@@ -153,10 +162,10 @@ const Contact = () => {
             <div className="p-6 bg-gradient-to-r from-green-50 to-blue-50 dark:from-green-900/20 dark:to-blue-900/20 rounded-2xl border border-green-100 dark:border-green-800 shadow-lg">
               <div className="flex items-center gap-3 mb-2">
                 <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
-                <span className="text-green-700 dark:text-green-400 font-semibold">Available for new projects</span>
+                <span className="text-green-700 dark:text-green-400 font-semibold">{t('contact.available')}</span>
               </div>
               <p className="text-sm text-green-600 dark:text-green-300">
-                Currently accepting new client work and collaborations
+                {t('contact.available_desc')}
               </p>
             </div>
           </div>
@@ -168,7 +177,7 @@ const Contact = () => {
                 <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
                   <Send className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">Start a Project</h3>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white">{t('contact.start_project')}</h3>
               </div>
 
               {/* Success Message */}
@@ -185,7 +194,7 @@ const Contact = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
                     <label htmlFor="name" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
-                      Full Name *
+                      {t('contact.form.name')}
                     </label>
                     <input
                       type="text"
@@ -194,7 +203,7 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-white/50 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-white/70"
-                      placeholder="Your full name"
+                      placeholder={t('contact.form.name_placeholder')}
                       required
                     />
                   </div>

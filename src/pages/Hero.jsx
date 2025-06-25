@@ -2,13 +2,15 @@
 
 import { Code, Download, Github, Instagram, Mail, Sparkles } from "lucide-react"
 import { useEffect, useState } from "react"
+import { useTranslation } from 'react-i18next'
 
 const BG_IMAGE = "/glasses-lie-laptop-reflecting-light-from-screen-dark.jpg" // Place your background image in public/hero-bg.jpg
 const PROFILE_IMAGE = "/profile.jpg" // Place your profile image in public/profile.jpg
 
 const Hero = () => {
+  const { t } = useTranslation();
   const [text, setText] = useState("")
-  const fullText = "Full-Stack Developer & Problem Solver"
+  const fullText = t('hero.role')
   const [bgError, setBgError] = useState(false)
   const [imgError, setImgError] = useState(false)
 
@@ -39,9 +41,9 @@ const Hero = () => {
           className="hidden dark:block sm:hidden w-full h-full object-cover object-[center_top] opacity-50 dark:opacity-40"
           style={{ zIndex: 0 }}
         />
-        {/* Desktop background image (debug: always show) */}
+        {/* Desktop background image (debug: always show, use mobile image) */}
         <img
-          src="/glasses-lie-laptop-reflecting-light-from-screen-dark.jpg"
+          src="/glasses-lie-laptop-reflecting-light-from-screen-dark(mobile).jpg"
           alt="Hero background debug"
           className="block w-full h-full object-cover object-center"
           style={{ zIndex: 0 }}
@@ -95,10 +97,10 @@ const Hero = () => {
         {/* Main Content */}
         <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6">
           <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
-            Abdul Razzaq
+            {t('hero.firstname')}
           </span>
           <br />
-          <span className="text-gray-800 dark:text-white">Ansari</span>
+          <span className="text-gray-800 dark:text-white">{t('hero.lastname')}</span>
         </h1>
 
         <div className="h-16 mb-8">
@@ -109,8 +111,7 @@ const Hero = () => {
         </div>
 
         <p className="text-lg text-gray-600 dark:text-gray-400 mb-12 max-w-3xl mx-auto leading-relaxed">
-          A self-motivated BSc Computing student from Nepal, passionate about creating scalable web applications with
-          modern technologies. Specialized in Java, PHP, React, and Python development.
+          {t('hero.description')}
         </p>
 
         {/* CTA Buttons */}
@@ -121,7 +122,7 @@ const Hero = () => {
           >
             <span className="flex items-center justify-center gap-2">
               <Mail className="w-5 h-5 group-hover:rotate-12 transition-transform" />
-              Get In Touch
+              {t('hero.get_in_touch')}
             </span>
           </a>
           <a
@@ -132,7 +133,7 @@ const Hero = () => {
           >
             <span className="flex items-center justify-center gap-2">
               <Download className="w-5 h-5 group-hover:translate-y-1 transition-transform" />
-              Download CV
+              {t('hero.download_cv')}
             </span>
           </a>
         </div>

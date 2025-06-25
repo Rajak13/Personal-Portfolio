@@ -2,8 +2,10 @@
 
 import { CheckSquare, Code, Database, ExternalLink, Github, Globe, Search, Video } from "lucide-react"
 import { useState } from "react"
+import { useTranslation } from 'react-i18next'
 
 const Projects = () => {
+  const { t } = useTranslation();
   const [activeFilter, setActiveFilter] = useState("all")
   const [searchTerm, setSearchTerm] = useState("")
 
@@ -86,11 +88,11 @@ const Projects = () => {
   ]
 
   const filters = [
-    { id: "all", label: "All Projects", icon: Globe, count: projects.length },
-    { id: "web", label: "Web Apps", icon: Code, count: projects.filter((p) => p.category === "web").length },
+    { id: "all", label: t('projects.filters.all'), icon: Globe, count: projects.length },
+    { id: "web", label: t('projects.filters.web'), icon: Code, count: projects.filter((p) => p.category === "web").length },
     {
       id: "desktop",
-      label: "Desktop Apps",
+      label: t('projects.filters.desktop'),
       icon: Database,
       count: projects.filter((p) => p.category === "desktop").length,
     },
@@ -146,11 +148,11 @@ const Projects = () => {
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-blue-600 to-indigo-600 bg-clip-text text-transparent">
-              Featured Projects
+              {t('projects.title')}
             </span>
           </h2>
           <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
-            A showcase of my recent work and technical achievements across different platforms
+            {t('projects.subtitle')}
           </p>
         </div>
 
@@ -162,7 +164,7 @@ const Projects = () => {
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
                 type="text"
-                placeholder="Search projects, technologies..."
+                placeholder={t('projects.search_placeholder')}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full pl-10 pr-4 py-3 bg-white/70 dark:bg-gray-900/70 backdrop-blur-md border border-white/20 dark:border-gray-700/20 rounded-2xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
