@@ -1,7 +1,8 @@
 "use client"
 
+import gsap from 'gsap'
 import { Code, Download, Github, Instagram, Mail, Sparkles } from "lucide-react"
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useTranslation } from 'react-i18next'
 
 const BG_IMAGE = "/glasses-lie-laptop-reflecting-light-from-screen-dark.jpg" // Place your background image in public/hero-bg.jpg
@@ -13,6 +14,10 @@ const Hero = () => {
   const fullText = t('hero.role')
   const [bgError, setBgError] = useState(false)
   const [imgError, setImgError] = useState(false)
+  const imgRef = useRef();
+  const nameTextRef = useRef();
+  const roleRef = useRef();
+  const btnsRef = useRef();
 
   useEffect(() => {
     let index = 0
@@ -27,6 +32,25 @@ const Hero = () => {
     return () => clearInterval(timer)
   }, [])
 
+  useEffect(() => {
+    // Animate the profile image
+    if (imgRef.current) {
+      gsap.fromTo(imgRef.current, { y: 60, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out" });
+    }
+    // Animate the name text after the image
+    if (nameTextRef.current) {
+      gsap.fromTo(nameTextRef.current, { y: 40, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 0.5, ease: "power3.out" });
+    }
+    // Animate the role/description, after the name
+    if (roleRef.current) {
+      gsap.fromTo(roleRef.current, { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 1, ease: "power3.out" });
+    }
+    // Animate the CTA buttons, after the role
+    if (btnsRef.current) {
+      gsap.fromTo(btnsRef.current, { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 1, delay: 1.5, ease: "power3.out" });
+    }
+  }, []);
+
   return (
     <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden">
       {/* Background: gradient for light, image for dark */}
@@ -38,14 +62,14 @@ const Hero = () => {
         <img
           src="/559.jpg"
           alt="Hero background mobile"
-          className="hidden dark:block sm:hidden w-full h-full object-cover object-[center_top] opacity-50 dark:opacity-40"
+          className="hidden dark:block sm:hidden w-full h-full object-cover object-[center_top] opacity-50 dark:opacity-35"
           style={{ zIndex: 0 }}
         />
         {/* Desktop background image (debug: always show, use mobile image) */}
         <img
           src="/glasses-lie-laptop-reflecting-light-from-screen-dark(mobile).jpg"
           alt="Hero background debug"
-          className="block w-full h-full object-cover object-center"
+          className="block w-full h-full object-cover object-center dark:opacity-35"
           style={{ zIndex: 0 }}
         />
         {/* Subtle grid pattern overlay */}
@@ -79,6 +103,7 @@ const Hero = () => {
         <div className="mb-8 relative mt-24 sm:mt-0">
           {!imgError ? (
             <img
+              ref={imgRef}
               src={PROFILE_IMAGE}
               alt="Abdul Razzaq Ansari"
               className="w-40 h-40 mx-auto rounded-full object-cover border-4 border-blue-400 shadow-lg bg-white dark:bg-gray-900"
@@ -95,7 +120,7 @@ const Hero = () => {
         </div>
 
         {/* Main Content */}
-        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6">
+        <h1 ref={nameTextRef} className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6">
           <span className="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
             {t('hero.firstname')}
           </span>
@@ -103,7 +128,7 @@ const Hero = () => {
           <span className="text-gray-800 dark:text-white">{t('hero.lastname')}</span>
         </h1>
 
-        <div className="h-16 mb-8">
+        <div ref= {roleRef} className="h-16 mb-8">
           <p className="text-xl sm:text-2xl text-gray-600 dark:text-gray-300 font-medium">
             {text}
             <span className="animate-pulse">|</span>
@@ -115,7 +140,7 @@ const Hero = () => {
         </p>
 
         {/* CTA Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+        <div ref={btnsRef} className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
           <a
             href="mailto:rajakansari833@gmail.com"
             className="group px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-semibold hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
@@ -170,6 +195,33 @@ const Hero = () => {
             <div className="w-1 h-3 bg-gray-400 dark:bg-gray-600 rounded-full mt-2 animate-bounce"></div>
           </div>
         </div>
+
+        {/* Footer */}
+        <footer className="mt-20 pt-8 border-t border-gray-200 dark:border-gray-700 text-center text-sm flex flex-col items-center gap-2">
+          <div className="flex items-center justify-center gap-3 mb-1">
+            <a
+              href="https://github.com/Rajak13"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="GitHub"
+              className="inline-flex items-center justify-center p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              <Github className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+            </a>
+            <a
+              href="https://www.instagram.com/rajak01013/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="inline-flex items-center justify-center p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            >
+              <Instagram className="w-5 h-5 text-gray-600 dark:text-gray-400" />
+            </a>
+          </div>
+          <span className="text-gray-600 dark:text-gray-400">
+            &copy; {new Date().getFullYear()} Abdul Razzaq Ansari. All rights reserved.
+          </span>
+        </footer>
       </div>
     </section>
   )

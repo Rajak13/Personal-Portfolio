@@ -25,3 +25,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+.MULTILANGUAGE_IMPLEMENTATION.md
+.GSAP_IMPLEMENTATION_PLAN.md
+.ENHANCEMENT_PLAN.md
+.task-3.md

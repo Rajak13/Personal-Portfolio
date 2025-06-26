@@ -1,20 +1,10 @@
 "use client"
 
-import {
-  Briefcase,
-  Code,
-  Home,
-  Mail,
-  Menu,
-  Moon,
-  Sun,
-  User,
-  X
-} from "lucide-react"
+import { Briefcase, ChevronDown, Code, Globe, Home, Mail, Menu, Moon, Sun, User, X } from "lucide-react"
 import { useEffect, useState } from "react"
-import { Route, Routes, useNavigate } from "react-router-dom"
+import { useTranslation } from 'react-i18next'
+import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
 import "./App.css"
-import LanguageSwitcher from "./components/LanguageSwitcher.jsx"
 import i18n from "./i18n"
 import About from "./pages/About"
 import Contact from "./pages/Contact"
@@ -25,8 +15,10 @@ import Skills from "./pages/Skills"
 function App() {
   const [darkMode, setDarkMode] = useState(true)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-
+  const [languageDropdownOpen, setLanguageDropdownOpen] = useState(false)
+  const location = useLocation()
   const navigate = useNavigate()
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (darkMode) {
@@ -37,9 +29,13 @@ function App() {
   }, [darkMode])
 
   useEffect(() => {
+    // Always start with English, then check localStorage
     const savedLang = localStorage.getItem('i18nextLng');
     if (savedLang && savedLang !== i18n.language) {
       i18n.changeLanguage(savedLang);
+    } else if (!savedLang) {
+      i18n.changeLanguage('en');
+      localStorage.setItem('i18nextLng', 'en');
     }
   }, []);
 
@@ -56,13 +52,27 @@ function App() {
     navigate(route)
   }
 
+  const handleLanguageChange = (lang) => {
+    i18n.changeLanguage(lang);
+    localStorage.setItem('i18nextLng', lang);
+    setLanguageDropdownOpen(false);
+  }
+
   const navItems = [
-    { route: "/", label: "Home", icon: Home },
-    { route: "/about", label: "About", icon: User },
-    { route: "/skills", label: "Skills", icon: Code },
-    { route: "/projects", label: "Projects", icon: Briefcase },
-    { route: "/contact", label: "Contact", icon: Mail },
+    { route: "/", label: t('nav.home'), icon: Home },
+    { route: "/about", label: t('nav.about'), icon: User },
+    { route: "/skills", label: t('nav.skills'), icon: Code },
+    { route: "/projects", label: t('nav.projects'), icon: Briefcase },
+    { route: "/contact", label: t('nav.contact'), icon: Mail },
   ]
+
+  const languages = [
+    { code: 'en', label: 'English', flag: '🇺🇸' },
+    { code: 'ne', label: 'नेपाली', flag: '🇳🇵' },
+    { code: 'es', label: 'Español', flag: '🇪🇸' },
+  ]
+
+  const currentLanguage = languages.find(lang => lang.code === i18n.language) || languages[0]
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50 dark:from-gray-900 dark:to-slate-900 transition-all duration-500">
@@ -77,11 +87,16 @@ function App() {
             <div className="hidden lg:flex items-center space-x-1">
               {navItems.map((item) => {
                 const Icon = item.icon
+                const isActive = location.pathname === item.route
                 return (
                   <button
                     key={item.route}
                     onClick={() => handleNavClick(item.route)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800`}
+                    className={`flex items-center gap-2 px-4 py-2 rounded-xl font-medium transition-all duration-300 ${
+                      isActive 
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30 shadow-lg"
+                        : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    }`}
                   >
                     <Icon className="w-4 h-4" />
                     <span className="hidden xl:inline">{item.label}</span>
@@ -91,7 +106,39 @@ function App() {
             </div>
 
             <div className="flex items-center gap-3">
-              <LanguageSwitcher />
+              {/* Language Dropdown */}
+              <div className="relative">
+                <button
+                  onClick={() => setLanguageDropdownOpen(!languageDropdownOpen)}
+                  className="flex items-center gap-2 px-3 py-2 rounded-xl bg-white/10 dark:bg-gray-800/50 backdrop-blur-md border border-white/20 dark:border-gray-700/20 hover:bg-white/20 dark:hover:bg-gray-700/50 transition-all duration-300"
+                >
+                  <Globe className="w-4 h-4 text-gray-600 dark:text-gray-300" />
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    {currentLanguage.flag} {currentLanguage.code.toUpperCase()}
+                  </span>
+                  <ChevronDown className={`w-4 h-4 text-gray-600 dark:text-gray-300 transition-transform duration-200 ${languageDropdownOpen ? 'rotate-180' : ''}`} />
+                </button>
+
+                {languageDropdownOpen && (
+                  <div className="absolute top-full right-0 mt-2 w-48 bg-white dark:bg-gray-800 rounded-xl border border-gray-200 dark:border-gray-700 shadow-lg backdrop-blur-md">
+                    {languages.map((lang) => (
+                      <button
+                        key={lang.code}
+                        onClick={() => handleLanguageChange(lang.code)}
+                        className={`w-full flex items-center gap-3 px-4 py-3 text-left hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200 ${
+                          lang.code === i18n.language 
+                            ? "bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400" 
+                            : "text-gray-700 dark:text-gray-300"
+                        } ${lang.code === languages[0].code ? 'rounded-t-xl' : ''} ${lang.code === languages[languages.length - 1].code ? 'rounded-b-xl' : ''}`}
+                      >
+                        <span className="text-lg">{lang.flag}</span>
+                        <span className="font-medium">{lang.label}</span>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+
               <button
                 onClick={toggleDarkMode}
                 className="p-2 rounded-xl bg-white/10 dark:bg-gray-800/50 backdrop-blur-md border border-white/20 dark:border-gray-700/20 hover:bg-white/20 dark:hover:bg-gray-700/50 transition-all duration-300 group"
@@ -124,11 +171,16 @@ function App() {
             <div className="py-4 space-y-2">
               {navItems.map((item) => {
                 const Icon = item.icon
+                const isActive = location.pathname === item.route
                 return (
                   <button
                     key={item.route}
                     onClick={() => handleNavClick(item.route)}
-                    className="w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-xl font-medium transition-all duration-300 ${
+                      isActive 
+                        ? "text-blue-600 dark:text-blue-400 bg-blue-100 dark:bg-blue-900/30"
+                        : "text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-100 dark:hover:bg-gray-800"
+                    }`}
                   >
                     <Icon className="w-5 h-5" />
                     <span>{item.label}</span>

@@ -1,8 +1,12 @@
 "use client"
 
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { CheckCircle, Github, Instagram, Mail, MapPin, MessageSquare, Phone, Send } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useTranslation } from 'react-i18next'
+
+gsap.registerPlugin(ScrollTrigger)
 
 const Contact = () => {
   const { t } = useTranslation();
@@ -17,6 +21,28 @@ const Contact = () => {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState(null)
+  const formRef = useRef();
+
+  useEffect(() => {
+    if (formRef.current) {
+      gsap.fromTo(
+        formRef.current,
+        { y: 40, opacity: 0, scale: 0.95 },
+        {
+          y: 0,
+          opacity: 1,
+          scale: 1,
+          duration: 1,
+          ease: 'power3.out',
+          scrollTrigger: {
+            trigger: formRef.current,
+            start: 'top 85%',
+            toggleActions: 'play none none none',
+          },
+        }
+      );
+    }
+  }, []);
 
   const handleChange = (e) => {
     setFormData({
@@ -72,9 +98,32 @@ const Contact = () => {
   return (
     <section
       id="contact"
-      className="py-20 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-slate-900"
+      className="min-h-screen py-20 relative overflow-hidden"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Background: gradient for light, image for dark */}
+      <div className="absolute inset-0 w-full h-full">
+        {/* Light mode: vibrant gradient */}
+        <div className="block dark:hidden absolute inset-0 bg-gradient-to-br from-[#e0e7ff] via-[#fbc2eb] to-[#ffe0e7]" />
+        {/* Dark mode: background image (user will set their own) */}
+        <img
+          src="/pexels-enginakyurt-24285677.jpg"
+          alt="Contact background"
+          className="hidden dark:block w-full h-full object-cover object-center dark:opacity-35"
+          style={{ zIndex: 0 }}
+        />
+        {/* Subtle grid pattern overlay */}
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            backgroundImage:
+              "url('data:image/svg+xml,%3Csvg%20width=\'60\'%20height=\'60\'%20viewBox=\'0%200%2060%2060\'%20xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg%20fill=\'none\'%20fillRule=\'evenodd\'%3E%3Cg%20fill=\'%239C92AC\'%20fillOpacity=\'0.1\'%3E%3Ccircle%20cx=\'30\'%20cy=\'30\'%20r=\'2\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')",
+            backgroundRepeat: "repeat",
+            zIndex: 1,
+          }}
+        ></div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-4xl sm:text-5xl font-bold mb-4">
             <span className="bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent">
@@ -172,7 +221,7 @@ const Contact = () => {
 
           {/* Contact Form - Right Side */}
           <div className="lg:col-span-3">
-            <div className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-md rounded-3xl border border-gray-200 dark:border-white/20 p-8 shadow-2xl">
+            <div ref={formRef} className="bg-white/90 dark:bg-gray-900/70 backdrop-blur-md rounded-3xl border border-gray-200 dark:border-white/20 p-8 shadow-2xl">
               <div className="flex items-center gap-3 mb-8">
                 <div className="w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-xl flex items-center justify-center">
                   <Send className="w-5 h-5 text-white" />
@@ -208,11 +257,8 @@ const Contact = () => {
                     />
                   </div>
                   <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-semibold text-gray-900 dark:text-white mb-2"
-                    >
-                      Email Address *
+                    <label htmlFor="email" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                      Email *
                     </label>
                     <input
                       type="email"
@@ -221,18 +267,30 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-white/50 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-white/70"
-                      placeholder="your@email.com"
+                      placeholder="your.email@example.com"
                       required
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div>
+                  <label htmlFor="subject" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                    Subject
+                  </label>
+                  <input
+                    type="text"
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3 bg-white/50 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-white/70"
+                    placeholder="Project inquiry or general question"
+                  />
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                   <div>
-                    <label
-                      htmlFor="projectType"
-                      className="block text-sm font-semibold text-gray-900 dark:text-white mb-2"
-                    >
+                    <label htmlFor="projectType" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
                       Project Type
                     </label>
                     <select
@@ -242,19 +300,16 @@ const Contact = () => {
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-white/50 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white"
                     >
-                      <option value="">Select type</option>
+                      <option value="">Select project type</option>
                       {projectTypes.map((type) => (
-                        <option key={type} value={type} className="text-gray-900 dark:text-white">
+                        <option key={type} value={type}>
                           {type}
                         </option>
                       ))}
                     </select>
                   </div>
                   <div>
-                    <label
-                      htmlFor="budget"
-                      className="block text-sm font-semibold text-gray-900 dark:text-white mb-2"
-                    >
+                    <label htmlFor="budget" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
                       Budget Range
                     </label>
                     <select
@@ -264,32 +319,10 @@ const Contact = () => {
                       onChange={handleChange}
                       className="w-full px-4 py-3 bg-white/50 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white"
                     >
-                      <option value="">Select budget</option>
-                      {budgetRanges.map((range) => (
-                        <option key={range} value={range} className="text-gray-900 dark:text-white">
-                          {range}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="timeline"
-                      className="block text-sm font-semibold text-gray-900 dark:text-white mb-2"
-                    >
-                      Timeline
-                    </label>
-                    <select
-                      id="timeline"
-                      name="timeline"
-                      value={formData.timeline}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 bg-white/50 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white"
-                    >
-                      <option value="">Select timeline</option>
-                      {timelineOptions.map((option) => (
-                        <option key={option} value={option} className="text-gray-900 dark:text-white">
-                          {option}
+                      <option value="">Select budget range</option>
+                      {budgetRanges.map((budget) => (
+                        <option key={budget} value={budget}>
+                          {budget}
                         </option>
                       ))}
                     </select>
@@ -297,30 +330,28 @@ const Contact = () => {
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="subject"
-                    className="block text-sm font-semibold text-gray-900 dark:text-white mb-2"
-                  >
-                    Subject *
+                  <label htmlFor="timeline" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                    Timeline
                   </label>
-                  <input
-                    type="text"
-                    id="subject"
-                    name="subject"
-                    value={formData.subject}
+                  <select
+                    id="timeline"
+                    name="timeline"
+                    value={formData.timeline}
                     onChange={handleChange}
-                    className="w-full px-4 py-3 bg-white/50 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-white/70"
-                    placeholder="Brief project description"
-                    required
-                  />
+                    className="w-full px-4 py-3 bg-white/50 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white"
+                  >
+                    <option value="">Select timeline</option>
+                    {timelineOptions.map((timeline) => (
+                      <option key={timeline} value={timeline}>
+                        {timeline}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-semibold text-gray-900 dark:text-white mb-2"
-                  >
-                    Project Details *
+                  <label htmlFor="message" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                    Message *
                   </label>
                   <textarea
                     id="message"
@@ -329,19 +360,27 @@ const Contact = () => {
                     onChange={handleChange}
                     rows={6}
                     className="w-full px-4 py-3 bg-white/50 dark:bg-gray-800/80 border border-gray-300 dark:border-gray-700 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-white/70 resize-none"
-                    placeholder="Tell me about your project requirements, goals, and any specific features you need..."
+                    placeholder="Tell me about your project, requirements, or any questions you have..."
                     required
-                  ></textarea>
+                  />
                 </div>
 
                 <button
                   type="submit"
-                  className="group w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105"
+                  disabled={isSubmitting}
+                  className="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-xl font-semibold hover:shadow-2xl hover:shadow-blue-500/25 transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  <span className="flex items-center justify-center gap-2">
-                    Send Message
-                    <Send className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                  </span>
+                  {isSubmitting ? (
+                    <>
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      Sending...
+                    </>
+                  ) : (
+                    <>
+                      <Send className="w-5 h-5" />
+                      Send Message
+                    </>
+                  )}
                 </button>
               </form>
             </div>
