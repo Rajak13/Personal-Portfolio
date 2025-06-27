@@ -248,6 +248,11 @@ const Skills = () => {
                   )}
                 </div>
 
+                {/* Skill Name */}
+                <h3 className="text-lg font-bold mb-2 text-gray-800 dark:text-white">
+                  {skill.name}
+                </h3>
+
                 {/* Skill Description */}
                 <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 leading-relaxed">
                   {skill.description}
