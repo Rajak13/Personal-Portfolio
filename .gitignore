@@ -26,6 +26,12 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
+# Ignore all markdown files except README.md
+*.md
+!README.md
+# Ignore all SQL files
+*.sql
+
 .MULTILANGUAGE_IMPLEMENTATION.md
 .GSAP_IMPLEMENTATION_PLAN.md
 .ENHANCEMENT_PLAN.md

@@ -301,5 +301,34 @@
     "fri": "शुक्र",
     "sat": "शनि",
     "sun": "आइत"
+  },
+  "blogs": {
+    "title": "ब्लग",
+    "subtitle": "लेख, ट्युटोरियल, र अपडेटहरू अन्वेषण गर्नुहोस्। प्रकार, ट्याग, वा क्रमबद्ध गरेर फिल्टर गर्नुहोस्!",
+    "search_placeholder": "शीर्षक वा सामग्रीबाट खोज्नुहोस्...",
+    "filter": {
+      "all": "सबै",
+      "tutorial": "ट्युटोरियल",
+      "opinion": "धारणा",
+      "project_update": "परियोजना अपडेट",
+      "announcement": "घोषणा",
+      "interview": "अन्तर्वार्ता",
+      "case_study": "केस स्टडी"
+    },
+    "sort": {
+      "newest": "नयाँतम",
+      "popular": "लोकप्रिय",
+      "az": "A-Z",
+      "oldest": "पुरानो"
+    },
+    "clear_tag": "ट्याग हटाउनुहोस्",
+    "no_blogs": "कुनै ब्लग फेला परेन।",
+    "views": "हेर्नुहोस्",
+    "min_read": "मिनेट पढ्नुहोस्",
+    "hero_bg_alt": "ब्लग हिरो पृष्ठभूमि",
+    "video_thumbnail_alt": "YouTube भिडियो थम्बनेल",
+    "video_iframe_title": "YouTube भिडियो",
+    "byline": "{{author}} द्वारा लेखिएको। अन्तिम अपडेट {{date}}।",
+    "related_articles": "सम्बन्धित लेखहरू"
   }
 }

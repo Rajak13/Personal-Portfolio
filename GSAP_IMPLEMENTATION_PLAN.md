@@ -170,9 +170,8 @@ if (prefersReducedMotion) return; // Skip or simplify animations
 
 ## 10. Self-Assessment Checklist
 
-- [ ] Did you install and import GSAP and any plugins?
-- [ ] Did you use refs or classNames to target elements?
-- [ ] Did you use useEffect to trigger animations?
+- [x] Did you use refs or classNames to target elements?
+- [x] Did you use useEffect to trigger animations?
 - [ ] Did you clean up animations if needed?
 - [ ] Did you use ScrollTrigger for scroll-based effects?
 - [ ] Did you test on different devices and browsers?

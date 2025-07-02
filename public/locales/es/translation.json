@@ -301,5 +301,34 @@
     "fri": "Vie",
     "sat": "Sáb",
     "sun": "Dom"
+  },
+  "blogs": {
+    "title": "Blog",
+    "subtitle": "Explora artículos, tutoriales y novedades. ¡Filtra por tipo, etiqueta o clasifica como prefieras!",
+    "search_placeholder": "Buscar por título o contenido...",
+    "filter": {
+      "all": "Todos",
+      "tutorial": "Tutorial",
+      "opinion": "Opinión",
+      "project_update": "Actualización de Proyecto",
+      "announcement": "Anuncio",
+      "interview": "Entrevista",
+      "case_study": "Caso de Estudio"
+    },
+    "sort": {
+      "newest": "Más reciente",
+      "popular": "Más popular",
+      "az": "A-Z",
+      "oldest": "Más antiguo"
+    },
+    "clear_tag": "Limpiar etiqueta",
+    "no_blogs": "No se encontraron blogs.",
+    "views": "vistas",
+    "min_read": "min de lectura",
+    "hero_bg_alt": "Fondo de héroe del blog",
+    "video_thumbnail_alt": "Miniatura de video de YouTube",
+    "video_iframe_title": "Video de YouTube",
+    "byline": "Escrito por {{author}}. Última actualización {{date}}.",
+    "related_articles": "Artículos Relacionados"
   }
 }

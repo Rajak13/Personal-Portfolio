@@ -301,5 +301,34 @@
     "fri": "Fri",
     "sat": "Sat",
     "sun": "Sun"
+  },
+  "blogs": {
+    "title": "Blog",
+    "subtitle": "Explore articles, tutorials, and updates. Filter by type, tag, or sort as you like!",
+    "search_placeholder": "Search by title or content...",
+    "filter": {
+      "all": "All",
+      "tutorial": "Tutorial",
+      "opinion": "Opinion",
+      "project_update": "Project Update",
+      "announcement": "Announcement",
+      "interview": "Interview",
+      "case_study": "Case Study"
+    },
+    "sort": {
+      "newest": "Newest",
+      "popular": "Most Popular",
+      "az": "A-Z",
+      "oldest": "Oldest"
+    },
+    "clear_tag": "Clear Tag",
+    "no_blogs": "No blogs found.",
+    "views": "views",
+    "min_read": "min read",
+    "hero_bg_alt": "Blog hero background",
+    "video_thumbnail_alt": "YouTube video thumbnail",
+    "video_iframe_title": "YouTube video",
+    "byline": "Written by {{author}}. Last updated {{date}}.",
+    "related_articles": "Related Articles"
   }
 }
