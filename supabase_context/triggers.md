@@ -1,0 +1,5 @@
+| table_schema | table_name   | trigger_name              | definition                                                                                                                                           |
+| ------------ | ------------ | ------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| auth         | users        | on_auth_user_created      | CREATE TRIGGER on_auth_user_created AFTER INSERT ON auth.users FOR EACH ROW EXECUTE FUNCTION handle_new_user()                                       |
+| realtime     | subscription | tr_check_filters          | CREATE TRIGGER tr_check_filters BEFORE INSERT OR UPDATE ON realtime.subscription FOR EACH ROW EXECUTE FUNCTION realtime.subscription_check_filters() |
+| storage      | objects      | update_objects_updated_at | CREATE TRIGGER update_objects_updated_at BEFORE UPDATE ON storage.objects FOR EACH ROW EXECUTE FUNCTION storage.update_updated_at_column()           |
