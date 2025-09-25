@@ -8,7 +8,7 @@ import { Route, Routes, useLocation, useNavigate } from "react-router-dom"
 import "./App.css"
 import i18n from "./i18n"
 import About from "./pages/About"
-import BlogDetail from "./pages/BlogDetails"
+import BlogDetails from "./pages/BlogDetails"
 import BlogsPage from "./pages/Blogs"
 import Contact from "./pages/Contact"
 import Hero from "./pages/Hero"
@@ -215,7 +215,7 @@ function App() {
             <Route path="/skills" element={<Skills />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/blogs" element={<BlogsPage />} />
-            <Route path="/blog/:id" element={<BlogDetail />} />
+            <Route path="/blog/:id" element={<BlogDetails />} />
             <Route path="/contact" element={<Contact />} />
           </Routes>
         </div>
