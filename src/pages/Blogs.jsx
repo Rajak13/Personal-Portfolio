@@ -3,6 +3,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
+import ImageWithFallback from '../components/common/ImageWithFallback';
 import useBlogs from '../hooks/fetchblogs';
 import { supabase } from '../lib/supabase';
 import { calculateReadingTime } from '../lib/utils';
@@ -264,27 +265,37 @@ function BlogsPage() {
                 className="group bg-white/80 dark:bg-gray-900/80 backdrop-blur-2xl rounded-2xl border border-white/30 dark:border-gray-700/60 overflow-hidden hover:shadow-2xl hover:scale-105 transition-all duration-300 flex flex-col relative"
               >
                 <Link to={`/blog/${blog.id}`} className="flex-1 flex flex-col">
-                  <div className="relative h-48 overflow-hidden">
-                    <img
+                  <div className="relative h-56 overflow-hidden rounded-t-2xl">
+                    <ImageWithFallback
                       src={blog.thumbnail}
                       alt={blog.title}
-                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500"
+                      fallbackClassName="w-full h-full rounded-t-2xl"
+                      loading="lazy"
                     />
+                    {/* Gradient overlay for better text readability */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-black/20"></div>
+                    
                     {/* Type Badge */}
-                    <div className="absolute top-4 left-4 px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 shadow">
-                      {blog.type}
-                    </div>
+                    {blog.type && (
+                      <div className="absolute top-3 left-3 px-3 py-1 rounded-full text-xs font-semibold bg-white/90 dark:bg-gray-900/90 text-blue-700 dark:text-blue-300 shadow-lg backdrop-blur-sm">
+                        {blog.type}
+                      </div>
+                    )}
+                    
                     {/* Date Badge */}
-                    <div className="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-semibold bg-gray-100 dark:bg-gray-700/30 text-gray-700 dark:text-gray-300">
+                    <div className="absolute bottom-3 right-3 px-3 py-1 rounded-full text-xs font-semibold bg-white/90 dark:bg-gray-900/90 text-gray-700 dark:text-gray-300 shadow-lg backdrop-blur-sm">
                       {new Date(blog.created_at).toLocaleDateString()}
                     </div>
                   </div>
                   <div className="p-6 flex-1 flex flex-col">
-                    <h3 className="text-xl font-bold text-gray-800 dark:text-white group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors mb-2">
+                    <h3 className="text-xl font-bold text-gray-800 dark:text-white group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors mb-3 line-clamp-2">
                       {blog.title}
                     </h3>
-                    <div className="flex flex-wrap gap-2 mb-3">
-                      {blog.tags && blog.tags.map(tag => (
+                    
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-2 mb-4">
+                      {blog.tags && blog.tags.slice(0, 3).map(tag => (
                         <button
                           key={tag}
                           className="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded-full hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
@@ -297,23 +308,38 @@ function BlogsPage() {
                           #{tag}
                         </button>
                       ))}
+                      {blog.tags && blog.tags.length > 3 && (
+                        <span className="px-2 py-1 text-xs text-gray-500 dark:text-gray-400">
+                          +{blog.tags.length - 3} more
+                        </span>
+                      )}
                     </div>
-                    <div className="flex items-center gap-3 mt-auto text-sm text-gray-500 dark:text-gray-400">
-                      <span>{blog.views} {t('blogs.views', 'views')}</span>
-                      <span>·</span>
-                      <span>{calculateReadingTime(blog.content)} {t('blogs.min_read', 'min read')}</span>
+                    
+                    {/* Stats and Like Button */}
+                    <div className="flex items-center justify-between mt-auto">
+                      <div className="flex items-center gap-3 text-sm text-gray-500 dark:text-gray-400">
+                        <span>{blog.views || 0} {t('blogs.views', 'views')}</span>
+                        <span>·</span>
+                        <span>{calculateReadingTime(blog.content)} {t('blogs.min_read', 'min read')}</span>
+                      </div>
+                      
+                      {/* Like Button */}
+                      <button
+                        className="flex items-center gap-1 px-3 py-1 bg-white/90 dark:bg-gray-800/90 rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all border border-pink-200 dark:border-pink-800"
+                        onClick={e => {
+                          e.preventDefault();
+                          handleLike(blog.id);
+                        }}
+                        aria-label={likeStates[blog.id]?.liked ? t('common.unlike', 'Unlike') : t('common.like', 'Like')}
+                      >
+                        <HeartIcon filled={likeStates[blog.id]?.liked} />
+                        <span className="text-pink-500 dark:text-pink-400 font-semibold text-sm">
+                          {likeStates[blog.id]?.count || 0}
+                        </span>
+                      </button>
                     </div>
                   </div>
                 </Link>
-                {/* Like Button */}
-                <button
-                  className={`absolute top-4 right-4 z-10 bg-white/90 dark:bg-gray-900/90 rounded-full p-2 shadow-lg hover:scale-110 transition-all border border-pink-200 dark:border-pink-800`}
-                  onClick={() => handleLike(blog.id)}
-                  aria-label={likeStates[blog.id]?.liked ? t('common.unlike', 'Unlike') : t('common.like', 'Like')}
-                >
-                  <HeartIcon filled={likeStates[blog.id]?.liked} />
-                  <span className="ml-1 text-pink-500 font-semibold text-sm align-middle">{likeStates[blog.id]?.count || 0}</span>
-                </button>
               </div>
             ))}
           </div>

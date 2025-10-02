@@ -243,37 +243,8 @@ export const blogService = {
   // Upload image to Supabase Storage
   async uploadImage(file) {
     try {
-      const fileExt = file.name.split('.').pop()
-      const fileName = `${Date.now()}-${Math.random().toString(36).substring(2)}.${fileExt}`
-      const filePath = `blog-images/${fileName}`
-
-      // First, try to create the bucket if it doesn't exist
-      const { data: buckets } = await supabase.storage.listBuckets()
-      const bucketExists = buckets?.some(bucket => bucket.name === 'blog-images')
-      
-      if (!bucketExists) {
-        const { error: bucketError } = await supabase.storage.createBucket('blog-images', {
-          public: true,
-          allowedMimeTypes: ['image/*'],
-          fileSizeLimit: 5242880 // 5MB
-        })
-        
-        if (bucketError && !bucketError.message.includes('already exists')) {
-          throw bucketError
-        }
-      }
-
-      const { error: uploadError } = await supabase.storage
-        .from('blog-images')
-        .upload(filePath, file)
-
-      if (uploadError) throw uploadError
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('blog-images')
-        .getPublicUrl(filePath)
-
-      return publicUrl
+      const { default: storageService } = await import('./storageService')
+      return await storageService.uploadBlogImage(file)
     } catch (error) {
       console.error('Error uploading image:', error)
       throw error
